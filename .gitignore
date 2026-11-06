@@ -1,0 +1,9 @@
+# Device output folders (<model>_<serial>_<YYYY-MM-DD>/) contain personal data
+*_*_20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
+backup/
+security_scan/
+*.apk
+*.ab
+bugreport*.zip
+.DS_Store
+Thumbs.db

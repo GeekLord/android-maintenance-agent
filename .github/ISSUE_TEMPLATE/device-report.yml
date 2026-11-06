@@ -1,0 +1,50 @@
+name: Device report
+description: Tell us how the agent did on your phone
+title: "[Device] <brand> <model>, Android <version>"
+labels: ["device-report"]
+body:
+  - type: markdown
+    attributes:
+      value: Remove serial numbers, phone numbers, account names and anything personal before posting.
+  - type: input
+    id: device
+    attributes:
+      label: Brand and model
+      placeholder: Samsung Galaxy A54
+    validations:
+      required: true
+  - type: input
+    id: android
+    attributes:
+      label: Android version, skin and security patch
+      placeholder: Android 15, One UI 7, patch 2026-09-01
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and model
+      placeholder: Claude Code with Claude Sonnet, on Windows 11
+    validations:
+      required: true
+  - type: dropdown
+    id: prompt
+    attributes:
+      label: Prompt used
+      options:
+        - SKILL.md (full)
+        - prompts/security-scan.md
+        - prompts/quick-debloat.md
+    validations:
+      required: true
+  - type: textarea
+    id: services
+    attributes:
+      label: Services you ran and what happened
+      description: Packages removed, MB freed, findings, anything that failed and how it recovered.
+    validations:
+      required: true
+  - type: textarea
+    id: problems
+    attributes:
+      label: Anything that went wrong or was wrongly recommended
