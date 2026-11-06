@@ -1,11 +1,13 @@
 name: Device report
-description: Tell us how the agent did on your phone
-title: "[Device] <brand> <model>, Android <version>"
+description: Share how the agent did on your phone, using the standard report the agent generates
+title: "[Device] <Brand> <Model>, Android <version>"
 labels: ["device-report"]
 body:
   - type: markdown
     attributes:
-      value: Remove serial numbers, phone numbers, account names and anything personal before posting.
+      value: |
+        Thanks for sharing. The agent can write this report for you at the end of a run (see [docs/device-reports.md](https://github.com/GeekLord/android-maintenance-agent/blob/main/docs/device-reports.md)). Paste `device-report.md` into the report box below.
+        **Issues are public.** Remove serial numbers, IMEI, phone numbers, account names, Wi-Fi names, file names and the names of apps you installed yourself.
   - type: input
     id: device
     attributes:
@@ -16,8 +18,8 @@ body:
   - type: input
     id: android
     attributes:
-      label: Android version, skin and security patch
-      placeholder: Android 15, One UI 7, patch 2026-09-01
+      label: Android version and OEM skin
+      placeholder: Android 15, One UI 7
     validations:
       required: true
   - type: input
@@ -37,14 +39,40 @@ body:
         - prompts/quick-debloat.md
     validations:
       required: true
-  - type: textarea
+  - type: checkboxes
     id: services
     attributes:
-      label: Services you ran and what happened
-      description: Packages removed, MB freed, findings, anything that failed and how it recovered.
+      label: Services run
+      options:
+        - label: Health check
+        - label: Spyware and threat scan
+        - label: Backup
+        - label: Debloat
+        - label: Storage cleanup
+        - label: Unused-app removal
+        - label: Optimization
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Overall result
+      options:
+        - Worked well
+        - Worked with minor problems
+        - Something broke but rollback fixed it
+        - Something broke and I could not fix it
     validations:
       required: true
   - type: textarea
-    id: problems
+    id: report
     attributes:
-      label: Anything that went wrong or was wrongly recommended
+      label: Device report
+      description: Paste the device-report.md the agent generated, or fill in templates/device-report.md by hand.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed serial numbers, IMEI, phone numbers, account names, Wi-Fi names, file names and the names of apps I installed.
+          required: true

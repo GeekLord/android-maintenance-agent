@@ -228,6 +228,18 @@ Update `security_scan/report.md` and give me a short chat summary:
 - what still needs my action, including steps only I can do on the phone or from another device;
 - where the evidence and report are saved.
 
+### Optional: share a device report
+
+After the final report, ask me once: "Would you like to share an anonymous device report with the project? It helps other people with the same phone." If I say no, skip this step.
+
+If I say yes:
+1. Write `security_scan/device-report.md` using the template in Appendix C. Fill it only from this run (the report, the logs and the command output). Write "not run" or "unknown" instead of guessing.
+2. **Remove everything personal:** serial number, IMEI, phone number, email and account names, Wi-Fi names, contact and message content, file and folder names from storage, and the names of apps I installed myself. Threats found in my own apps go in by type only, unless I agree to share the package name.
+3. Show me the finished report and ask me to check it. Issues on GitHub are public.
+4. When I approve, send it:
+   - If the GitHub CLI is installed and signed in (`gh auth status`), and I say yes, run `gh issue create --repo GeekLord/android-maintenance-agent --title "[Device] <Brand> <Model>, Android <version>" --body-file security_scan/device-report.md` and give me the issue link.
+   - Otherwise give me this link: https://github.com/GeekLord/android-maintenance-agent/issues/new?template=device-report.yml . Copy the report to my clipboard (`Set-Clipboard` on Windows, `pbcopy` on macOS, `xclip` on Linux) and tell me to paste it into the report box.
+
 ### ⛔ Gate G5: lock-down (very last step)
 Use the end-state preference from G0. Ask me to confirm one of these:
 - **Turn off USB debugging now:** `adb shell settings put global adb_enabled 0`. This ends the ADB session, so make sure all report and rollback files are already written.
@@ -271,3 +283,101 @@ Also turn off wireless debugging (`adb_wifi_enabled`) if it is on, unless I use 
 | Restricted settings for sideloaded apps' accessibility | 13 | n/a |
 
 When a command fails because the feature doesn't exist, report it as "not available on this device" and continue. Don't try workarounds that need root.
+
+## Appendix C: Device report template
+
+Use exactly this structure for `device-report.md`.
+
+```markdown
+# Device report: <Brand> <Model>, Android <version>
+
+<!--
+Standard device report for Android Maintenance Agent.
+The agent fills this in at the end of a run. Every value must come from the run itself; write "not run" or "unknown" instead of guessing.
+Never include: serial number, IMEI, phone number, email or account names, Wi-Fi names, contact or message content, file or folder names from your storage, or the names of apps you installed yourself.
+-->
+
+## Device and setup
+
+| Field | Value |
+|---|---|
+| Brand and model | |
+| Model code (`ro.product.model`) | |
+| Android version (SDK) | |
+| OEM skin and version | |
+| Security patch | |
+| Region or CSC | |
+| Root | No / Yes (which) |
+| Agent and model | e.g. Claude Code, Claude Sonnet |
+| Computer OS and shell | e.g. Windows 11, PowerShell 7 |
+| Prompt and version | SKILL.md / security-scan.md / quick-debloat.md, version from CHANGELOG |
+| Date of run | YYYY-MM-DD |
+
+## Services run
+
+- [ ] Health check
+- [ ] Spyware and threat scan
+- [ ] Backup
+- [ ] Debloat
+- [ ] Storage cleanup
+- [ ] Unused-app removal
+- [ ] Optimization
+- [ ] Restart and verification
+
+## Results
+
+| Metric | Before | After |
+|---|---|---|
+| Free internal storage | | |
+| System packages (enabled) | | |
+| User apps | | |
+| Packages removed | | total (Tier 1 / Tier 2 / Tier 3) |
+| Settings changed | | count |
+| Battery health estimate | | |
+
+## System packages removed
+
+| Package | Tier | What it was | Any problem afterwards? |
+|---|---|---|---|
+| | | | |
+
+## Spyware and threat scan
+
+| Group | Count |
+|---|---|
+| Confirmed | |
+| Suspicious | |
+| Notable | |
+
+- Threat types found (for example stalkerware, banking trojan, interception, remote access), without app names unless the user agreed:
+- Level 2 tools run (spytrap-adb, AndroidQF + MVT, VirusTotal hashes, Play Protect):
+- Remediation applied (R1 to R9):
+- Possible false positives (system or well-known packages wrongly flagged):
+
+## Rollback
+
+- Rollback scripts tested: Yes / No
+- Result:
+
+## What went wrong
+
+| Step | Command or recommendation | What happened | How it was fixed |
+|---|---|---|---|
+| | | | |
+
+## OS or OEM quirks worth adding to Appendix B
+
+-
+
+## Time and cost
+
+- Total time with the phone connected:
+- Tokens or cost reported by the agent (if shown):
+
+## Privacy check
+
+- [ ] No serial number, IMEI or phone number
+- [ ] No email or account names
+- [ ] No Wi-Fi names, contacts, messages, file or folder names
+- [ ] No names of apps I installed myself (unless I chose to share a threat)
+```

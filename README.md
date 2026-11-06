@@ -101,7 +101,7 @@ Inspired by the debloat prompt in [Remove Android Bloatware Using AI (No Root)](
 
 ## Contributing
 
-Ran it on your phone? [Open a device report](../../issues/new?template=device-report.yml) with your model, Android version, agent and what happened. Reports like that make the debloat lists and OS notes better for everyone. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Ran it on your phone? At the end of a run the agent offers to write an anonymous **device report** in a [standard format](templates/device-report.md), strips anything personal, shows it to you, and can file it as a GitHub issue for you (or you [paste it here](../../issues/new?template=device-report.yml)). Reports like that make the debloat lists, OS notes and threat checks better for everyone. See [docs/device-reports.md](docs/device-reports.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Disclaimer
 
